@@ -1,13 +1,15 @@
 import { Router } from 'express'
 import {postUrlShorten, getUrl, getUrlOpen, deleteUrl } from '../controllers/urls.controllers.js'
+import {validateSchema} from '../middlewares/validate.schemas.middleware.js'
+import { urlsSchemas } from '../schemas/url.schemas.js'
 
 
 const routerUrl = Router()
 
-routerUrl.use.post('/urls/shorten', postUrlShorten)
-routerUrl.use.get(' /urls/:id', getUrl)
-routerUrl.use.get('/urls/open/:shortUrl', getUrlOpen)
-routerUrl.use.delete('/urls/:id', deleteUrl)
+routerUrl.post('/urls/shorten', validateSchema(urlsSchemas), postUrlShorten)
+routerUrl.get(' /urls/:id', getUrl)
+routerUrl.get('/urls/open/:shortUrl', getUrlOpen)
+routerUrl.delete('/urls/:id', deleteUrl)
 
 
 export default routerUrl
