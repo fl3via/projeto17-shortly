@@ -30,12 +30,12 @@ export async function createSignIn(req, res) {
     const user = await db.query(`SELECT * FROM users WHERE email = $1;`, [email])
     if (user.rowCount === 0) return res.status(401).send({ messege: "E-mail não cadastrado!" })
 
-    const passwordOk = bcrypt.compare(password, user.rows[0].password)
+    const passwordOk = bcrypt.compareSync(password, user.rows[0].password)
     if (!passwordOk) return res.status(401).send({ message: "Senha incorreta" })
 
     const token = uuid()
     await db.query(
-      `INSERT INTO sessions ("userId", token) VALUES ($1, $2);`[user.rows[0].id, token]
+      `INSERT INTO sessions ("userId", token) VALUES ($1, $2);`,[user.rows[0].id, token]
     )
 
     res.send({ token })
