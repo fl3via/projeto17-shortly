@@ -7,7 +7,7 @@ import { urlsSchemas } from '../schemas/url.schemas.js'
 const routerUrl = Router()
 
 routerUrl.post('/urls/shorten', validateSchema(urlsSchemas), postUrlShorten)
-routerUrl.get(' /urls/:id', getUrl)
+routerUrl.get('/urls/:id', getUrl)
 routerUrl.get('/urls/open/:shortUrl', getUrlOpen)
 routerUrl.delete('/urls/:id', deleteUrl)
 
