@@ -21,7 +21,7 @@ import { db } from '../database/connection.database.js'
       const userResult = await db.query(
         `SELECT id, name FROM users WHERE id=$1;`,
         [userId]
-      );
+      )
   
       if (userResult.rowCount === 0) {
         return res.sendStatus(404)
@@ -30,7 +30,7 @@ import { db } from '../database/connection.database.js'
       const userData = userResult.rows[0]
   
       const visitCountResult = await db.query(
-        `SELECT SUM("visitCount") FROM urls WHERE "userId"=$1;`,
+        `SELECT id, "shortUrl", url, "visitCount" FROM urls WHERE "userId"=$1;`,
         [userId]
 
       )
